@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pantalla de Inicio</title>
         <style>
-            
             body {
                 display: flex;
                 flex-direction: column;
@@ -15,39 +15,55 @@
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
+                background-image: url('img/inicio1.jpeg');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
             }
-            
-            .start-screen {
-    background: white;
-    padding: 20px;
-    border: 2px solid #333;
-    text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    transition: all 0.3s ease-in-out;
-    position: relative;
-    z-index: 2; 
-    margin-top: 50px; 
-}
 
-            .start-screen:hover {
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 16px 32px rgba(0, 0, 0, 0.2);
+            #game-title {
+                color: #ffffff;
+                font-size: 4em;
+                font-weight: bold;
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), -3px -3px 6px rgba(0, 0, 0, 0.7);
+                margin: 20px 0;
             }
+
+            .start-screen {
+                background: white;
+                padding: 20px;
+                border: 2px solid #333;
+                text-align: center;
+                box-shadow: 0 6px 1px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 15px;
+                transition: all 0.3s ease-in-out;
+                position: relative;
+                z-index: 2;
+                margin-top: 30px;
+                width: 90%;
+                max-width: 400px;
+                margin-bottom: 20px;
+            }
+
+            /* Ajustes para los campos de entrada (input) */
             .start-screen input {
                 margin: 10px;
-                padding: 12px;
-                font-size: 1.1em;
-                width: 220px;
+                padding: 8px;
+                font-size: 1em;
+                width: 100%;
+                max-width: 300px;
                 border-radius: 10px;
                 border: 2px solid #ccc;
                 box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
                 transition: all 0.2s ease;
             }
+
             .start-screen input:focus {
                 outline: none;
                 border-color: #1976d2;
                 box-shadow: 0 0 10px rgba(25, 118, 210, 0.5);
             }
+
             .start-screen button {
                 margin-top: 20px;
                 padding: 12px 25px;
@@ -61,70 +77,94 @@
                 box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.5);
                 transition: all 0.2s ease-in-out;
             }
+
             .start-screen button:hover {
                 background-color: #1565c0;
                 box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3), -6px -6px 15px rgba(255, 255, 255, 0.6);
             }
+
             .start-screen button:active {
                 box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.3), inset -5px -5px 10px rgba(255, 255, 255, 0.3);
                 transform: scale(0.95);
             }
+
             .error {
                 color: red;
                 font-size: 0.9em;
                 margin-top: 5px;
-                
             }
-            
-            body {
-                background-image: url('img/inicio1.jpeg'); /* Ruta de la imagen */
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
-            }
-            #game-title {
-                 color: #ffffff; /* Blanco */
-                 font-size: 4em; /* Tamaño grande */
-                 font-weight: bold; /* Estilo grueso */
-                 text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), -3px -3px 6px rgba(0, 0, 0, 0.7); /* Efecto 3D */
-                 margin: 20px 0;
-              }
 
             footer {
-    position: relative; /* Esto permite que el footer se mueva hacia abajo cuando el contenido lo empuje */
-    text-align: center;
-    font-size: 1em;
-    color: #333;
-    background: linear-gradient(145deg, #ffffff, #f1f1f1);
-    padding: 10px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 -2px 5px rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    width: 100%;
-    margin-top: auto; /* Esto hace que el footer se quede abajo cuando el contenido es suficiente */
-}
-footer p {
-    margin: 5px;
-    font-size: 1em;
-}
-footer a {
-    text-decoration: none;
-    color: #1976d2;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-footer a:hover {
-    color: #1565c0;
-    text-decoration: underline;
-}
-footer p, footer a {
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-}
+                position: relative;
+                text-align: center;
+                font-size: 1em;
+                color: #333;
+                background: linear-gradient(145deg, #ffffff, #f1f1f1);
+                padding: 10px 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 -2px 5px rgba(255, 255, 255, 0.3);
+                border-radius: 10px;
+                font-family: Arial, sans-serif;
+                width: 100%;
+                margin-top: auto;
+            }
 
+            footer p {
+                margin: 5px;
+                font-size: 1em;
+            }
 
-            /* Estilo para el fondo con la imagen */
-            
+            footer a {
+                text-decoration: none;
+                color: #1976d2;
+                font-weight: bold;
+                transition: color 0.3s ease;
+            }
 
+            footer a:hover {
+                color: #1565c0;
+                text-decoration: underline;
+            }
+
+            footer p, footer a {
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Media Queries for responsiveness */
+            @media screen and (max-width: 768px) {
+                #game-title {
+                    font-size: 3em;
+                }
+                .start-screen {
+                    width: 80%;
+                    padding: 15px;
+                }
+                .start-screen input {
+                    font-size: 1em;
+                    padding: 10px;
+                }
+                .start-screen button {
+                    font-size: 1em;
+                    padding: 10px 20px;
+                }
+            }
+
+            @media screen and (max-width: 480px) {
+                #game-title {
+                    font-size: 2.5em;
+                }
+                .start-screen {
+                    width: 600px; /* Fija el tamaño de la pantalla de inicio en 600px en teléfonos */
+                    height: 600px;
+                }
+                .start-screen input {
+                    font-size: 0.9em;
+                    padding: 8px;
+                }
+                .start-screen button {
+                    font-size: 0.9em;
+                    padding: 8px 18px;
+                }
+            }
         </style>
     </head>
     <body>
