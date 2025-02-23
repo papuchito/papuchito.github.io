@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Cero Mata Cero</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start; /* Cambié 'center' por 'flex-start' para que el contenido se alinee hacia arriba */
+                height: 100vh;
+                background-color: #f4f4f4;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-image: url('img/inicio1.jpeg'); /* Ruta de la imagen */
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }
+        
+            .board {
+                display: grid;
+                grid-template-columns: repeat(3, 100px);
+                grid-template-rows: repeat(3, 100px);
+                gap: 5px;
+                margin-top: 20px; /* Puedes ajustar este valor según lo que necesites */
+                justify-items: center; /* Esto asegura que las celdas estén centradas en cada celda */
+            }
+        
+            .cell {
+                width: 100px;
+                height: 100px;
+                background: linear-gradient(145deg, #ffffff, #dcdcdc);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2.5em;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 10px;
+                border: none;
+                box-shadow: 5px 5px 10px #a3a3a3, -5px -5px 10px #ffffff;
+                transition: all 0.2s ease-in-out;
+            }
+        
+            .cell:active {
+                box-shadow: inset 5px 5px 10px #a3a3a3, inset -5px -5px 10px #ffffff;
+                transform: scale(0.95);
+            }
+        
+            /* Efecto 3D para "X" y "O" */
+            .cell.x, .cell.o {
+                position: relative;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            }
+        
+            .cell.x {
+                color: #d32f2f; /* Rojo para X */
+                font-size: 3em;
+                transform: rotate(10deg);
+            }
+        
+            #game-title {
+                 color: #ffffff; /* Blanco */
+                 font-size: 4em; /* Tamaño grande */
+                 font-weight: bold; /* Estilo grueso */
+                 text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), -3px -3px 6px rgba(0, 0, 0, 0.7); /* Efecto 3D */
+                 margin: 20px 0;
+              }
+
+        
+            /* Añadir un poco de profundidad para las piezas */
+            .cell.x:after, .cell.o:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 10px;
+                height: 10px;
+                background: #000;
+                border-radius: 50%;
+                opacity: 0.2;
+                transform: translate(-50%, -50%) scale(0.5);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+            }
+        
+            .winner-box {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(145deg, #ffffff, #dcdcdc);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 10px 10px 20px #a3a3a3, -10px -10px 20px #ffffff;
+                text-align: center;
+            }
+        
+            .winner-box h2 {
+                margin: 0;
+                font-size: 1.5em;
+            }
+        
+            .winner-box button {
+                margin-top: 10px;
+                padding: 10px 20px;
+                font-size: 1em;
+                font-weight: bold;
+                cursor: pointer;
+                border-radius: 10px;
+                border: none;
+                background: linear-gradient(145deg, #ffffff, #dcdcdc);
+                box-shadow: 5px 5px 10px #a3a3a3, -5px -5px 10px #ffffff;
+                transition: all 0.2s ease-in-out;
+            }
+        
+            .winner-box button:active {
+                box-shadow: inset 5px 5px 10px #a3a3a3, inset -5px -5px 10px #ffffff;
+                transform: scale(0.95);
+            }
+        
+            footer {
+    position: relative; /* Esto permite que el footer se mueva hacia abajo cuando el contenido lo empuje */
+    text-align: center;
+    font-size: 1em;
+    color: #333;
+    background: linear-gradient(145deg, #ffffff, #f1f1f1);
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 -2px 5px rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin-top: auto; /* Esto hace que el footer se quede abajo cuando el contenido es suficiente */
+}
+footer p {
+    margin: 5px;
+    font-size: 1em;
+}
+footer a {
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+footer a:hover {
+    color: #1565c0;
+    text-decoration: underline;
+}
+footer p, footer a {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+        
+            /* Botón 3D Regresa */
+            .back-button {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                padding: 12px 20px;
+                font-size: 1.1em;
+                font-weight: bold;
+                cursor: pointer;
+                background-color: #1976d2;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), -4px -4px 10px rgba(255, 255, 255, 0.5);
+                transition: all 0.2s ease-in-out;
+            }
+        
+            .back-button:hover {
+                background-color: #1565c0;
+                box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.3), -6px -6px 15px rgba(255, 255, 255, 0.6);
+            }
+        
+            .back-button:active {
+                box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.3), inset -5px -5px 10px rgba(255, 255, 255, 0.3);
+                transform: scale(0.95);
+            }
+        </style>
+        
+    </head>
+
+    <body>
+        <button class="back-button" onclick="window.history.back()">Regresar</button>
+        <h1 id="game-title">Cero Mata Cero</h1>
+        <p id="turn-indicator"></p>
+        <div class="board" id="board"></div>
+
+        <div class="winner-box" id="winner-box">
+            <h2 id="winner-message"></h2>
+            <button onclick="resetGame()">Repetir</button>
+        </div>
+
+        <script>
+            let player1 = localStorage.getItem("player1") || "Jugador 1";
+            let player2 = localStorage.getItem("player2") || "Jugador 2";
+            let currentPlayer = player1;
+            let cells = Array(9).fill(null);
+
+            document.getElementById("turn-indicator").innerText = `Turno de ${currentPlayer}`;
+
+            function handleClick(index) {
+                if (cells[index] || document.getElementById("winner-box").style.display === "block") return;
+                cells[index] = currentPlayer === player1 ? "O" : "X";
+                renderBoard();
+                let winner = checkWinner();
+                if (winner) {
+                    showWinner(winner === "Empate" ? "¡Es un empate!" : `¡${currentPlayer} gana!`);
+                } else {
+                    currentPlayer = currentPlayer === player1 ? player2 : player1;
+                    document.getElementById("turn-indicator").innerText = `Turno de ${currentPlayer}`;
+                }
+            }
+
+            function renderBoard() {
+                const board = document.getElementById("board");
+                board.innerHTML = "";
+                cells.forEach((value, index) => {
+                    const cell = document.createElement("div");
+                    cell.classList.add("cell");
+                    cell.innerText = value || "";
+                    cell.addEventListener("click", () => handleClick(index));
+                    board.appendChild(cell);
+                });
+            }
+
+            function checkWinner() {
+                const winPatterns = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                    [0, 4, 8], [2, 4, 6]
+                ];
+                for (let pattern of winPatterns) {
+                    const [a, b, c] = pattern;
+                    if (cells[a] && cells[a] === cells[b] && cells[a] === cells[c]) {
+                        return currentPlayer;
+                    }
+                }
+                return cells.includes(null) ? null : "Empate";
+            }
+
+            function showWinner(message) {
+                document.getElementById("winner-message").innerText = message;
+                document.getElementById("winner-box").style.display = "block";
+            }
+
+            function resetGame() {
+                cells = Array(9).fill(null);
+                currentPlayer = player1;
+                document.getElementById("winner-box").style.display = "none";
+                document.getElementById("turn-indicator").innerText = `Turno de ${currentPlayer}`;
+                renderBoard();
+            }
+
+            renderBoard();
+        </script>
+
+        <footer>
+            <p>&copy; 2025 Derechos Reservados A Papuchitomc</p>
+            <p>
+                <a href="">Mas Proyectos</a>
+            </p>
+        </footer>
+    </body>
+</html>
